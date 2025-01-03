@@ -1,0 +1,43 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".validate": "newData.hasChildren(['displayName', 'email'])",
+        "displayName": { ".validate": "newData.isString()" },
+        "email": { ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$/)" },
+        "score": { ".validate": "newData.isNumber()" },
+        "createdAt": { ".validate": "newData.isString()" },
+        "updatedAt": { ".validate": "newData.isString()" }
+      }
+    },
+    "topics": {
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      "$topicId": {
+        ".validate": "newData.hasChildren(['name', 'description', 'difficulty'])",
+        "name": { ".validate": "newData.isString()" },
+        "description": { ".validate": "newData.isString()" },
+        "difficulty": { ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5" },
+        "words": {
+          "$wordId": {
+            ".validate": "newData.hasChildren(['english', 'spanish', 'difficulty'])",
+            "english": { ".validate": "newData.isString()" },
+            "spanish": { ".validate": "newData.isString()" },
+            "difficulty": { ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5" }
+          }
+        }
+      }
+    },
+    "gameStats": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".validate": "newData.hasChildren(['score', 'correctAnswers', 'incorrectAnswers'])",
+        "score": { ".validate": "newData.isNumber()" },
+        "correctAnswers": { ".validate": "newData.isNumber()" },
+        "incorrectAnswers": { ".validate": "newData.isNumber()" },
+        "lastPlayed": { ".validate": "newData.isString()" }
+      }
+    }
+  }
+}
