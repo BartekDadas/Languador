@@ -34,7 +34,7 @@ This project was developed using the following tools and technologies:
 
 Experience the Languador demo here:
 
-[Demo Link](https://silver-empanada-d77432.netlify.app)
+[Demo Link](https://resilient-hotteok-76e3c4.netlify.app)
 
 *Please note that this is a demo version and may not include all features planned for the full release.*
 
